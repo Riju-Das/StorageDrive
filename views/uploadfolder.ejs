@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Upload</title>
+  <link rel="stylesheet" href="/uploadfolder.css">
+</head>
+
+<body>
+  <div class="upload-container">
+    <h2>Upload File</h2>
+    <form action="/<%=folderId %>/upload" method="POST" enctype="multipart/form-data">
+      <label class="custom-file-upload">
+        <input type="file" name="file" id="fileInput" required />
+        Choose File
+      </label>
+      <span id="fileName">No file chosen</span>
+      <br><br>
+      <button type="submit">Upload</button>
+    </form>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const fileName = document.getElementById('fileName');
+
+    fileInput.addEventListener('change', () => {
+      fileName.textContent = fileInput.files.length > 0
+        ? fileInput.files[0].name
+        : 'No file chosen';
+    });
+  </script>
+</body>
+
+</html>

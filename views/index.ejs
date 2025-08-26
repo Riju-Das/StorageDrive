@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Storage Drive</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <%- include("./partials/navbar.ejs", { user: user }) %>
+
+  <div class="container">
+    <% if (user) { %>
+
+      <div class="sidebar">
+        <button onclick="location.href='/upload'">Upload File</button>
+        <button onclick="location.href='/create-folder'">Upload Folder</button>
+      </div>
+
+
+      <div class="main">
+        <% if (folders && folders.length > 0) { %>
+          <% folders.forEach(folder => { %>
+            <div class="item folder" onclick="location.href='/<%= folder.id %>'">
+              📁 <%= folder.name %>
+            </div>
+          <% }) %>
+        <% } %>
+
+        <% if (files && files.length > 0) { %>
+          <% files.forEach(file => { %>
+            <div class="item file">
+              📄 <%= file.url %>
+              <div class="actions">
+                <form action="/download/<%= file.id %>" method="GET">
+                  <button>Download</button>
+                </form>
+                <form action="/delete/<%= file.id %>" method="POST">
+                  <button>Delete</button>
+                </form>
+              </div>
+            </div>
+          <% }) %>
+        <% } %>
+      </div>
+    <% } else { %>
+      <div class="login-message">
+        <h2>Log in to view your files and folders.</h2>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>

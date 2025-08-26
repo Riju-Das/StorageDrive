@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>
+    <%= folder.name %>
+  </title>
+  <link rel="stylesheet" href="/folder.css">
+</head>
+
+<body>
+  <%- include("./partials/navbar.ejs", { user: user }) %>
+
+    <div class="container">
+  
+      <div class="sidebar">
+        <h2 class="sidebar-title">📂 <%= folder.name %>
+        </h2>  
+
+        <form action="/" method="GET">
+          <button type="submit" class="sidebar-btn"> Go Back</button>
+        </form>
+
+   
+        <form action="/<%= folder.id %>/upload" method="GET">
+          <button type="submit" class="sidebar-btn"> Upload File</button>
+        </form>
+
+       
+        <form action="/<%= folder.id %>/delete" method="POST">
+          <button type="submit" class="sidebar-btn delete"> Delete Folder</button>
+        </form>
+        
+      </div>
+
+     
+      <main class="main">
+        <h1>Files in <%= folder.name %>
+        </h1>
+        <div class="grid-container">
+        <% if (files && files.length > 0) { %>
+          <% files.forEach(file => { %>
+            <div class="item file">
+              📄 <%= file.url %>
+              <div class="actions">
+                <form action="/download/<%= file.id %>" method="GET">
+                  <button>Download</button>
+                </form>
+                <form action="/delete/<%= file.id %>" method="POST">
+                  <button>Delete</button>
+                </form>
+              </div>
+            </div>
+          <% }) %>
+        <% } %>
+        </div>
+      </main>
+    </div>
+</body>
+
+</html>

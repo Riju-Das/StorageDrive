@@ -1,0 +1,15 @@
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">My Storage Drive</a>
+  </div>
+  <div class="nav-links">
+    <% if (user) { %>
+      <span class="welcome">Welcome, <%= user.username %></span>
+      <form action="/logout" method="POST" style="display:inline;">
+        <button type="submit" class="btn logout">Logout</button>
+      </form>
+    <% } else { %>
+      <a href="/login" class="btn login">Login</a>
+    <% } %>
+  </div>
+</nav>
