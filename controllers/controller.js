@@ -220,14 +220,14 @@ async function downloadFile(req, res) {
     try {
         const file = await db.fetchFileByFileId(fileId)
         if (!file) return res.status(404).send("File not found");
-        const { data, error } = supabase.storage
+        const { data, error } = await supabase.storage
             .from("myStorageDrive")
-            .getPublicUrl(file.url);
+            .createSignedUrl(file.url, 60 * 60);
         if (error) {
-            console.error("Error getting public URL:", error.message);
+            console.error(error);
             return res.status(500).send("Error getting file URL");
         }
-        return res.redirect(data.publicUrl);
+        return res.redirect(data.signedUrl);
     }
     catch (err) {
         console.log(err)
